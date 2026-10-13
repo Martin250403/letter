@@ -92,7 +92,7 @@ function Lightbox({
         <AnimatePresence mode="wait">
           <motion.img
             key={photo.src}
-            src={photo.src}
+            src={`${import.meta.env.BASE_URL}${photo.src.replace(/^\/+/, '')}`}
             alt={photo.alt || photo.caption || 'Memory photo'}
             className="lightbox-image"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -136,6 +136,8 @@ function Lightbox({
 
 export default function MemoriesSection() {
   const { memories } = siteContent;
+  const imageUrl = (src: string) =>
+  `${import.meta.env.BASE_URL}${src.replace(/^\/+/, '')}`;
   const reduced = useReducedMotion();
   const [activeCategory, setActiveCategory] = useState('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -228,7 +230,7 @@ export default function MemoriesSection() {
                   aria-label={`View ${photo.alt || photo.caption || 'memory photo'}`}
                 >
                   <img
-                    src={photo.src}
+                    src={imageUrl(photo.src)}
                     alt={photo.alt || photo.caption || 'A memory together'}
                     loading="lazy"
                     className={`w-full object-cover rounded-sm ${
