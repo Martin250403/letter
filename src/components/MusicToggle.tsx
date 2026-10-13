@@ -12,7 +12,8 @@ export default function MusicToggle() {
   useEffect(() => {
     if (!filename) return;
 
-    const audio = new Audio(`/${filename}`);
+    const audioSrc = `${import.meta.env.BASE_URL}${filename.replace(/^\/+/, '')}`;
+    const audio = new Audio(audioSrc);
     audio.loop = true;
     audio.volume = 0.3;
     audioRef.current = audio;
